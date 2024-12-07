@@ -19,6 +19,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP
 );
 
+
 CREATE TABLE favourites (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -32,6 +33,7 @@ CREATE TABLE shared_favorites (
   shared_id UUID NOT NULL UNIQUE,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
 
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
@@ -52,6 +54,7 @@ CREATE TABLE groups (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
+
 CREATE TABLE group_members (
     id SERIAL PRIMARY KEY,
     group_id INTEGER NOT NULL,
@@ -68,8 +71,10 @@ CREATE TABLE groupMovies (
     group_id INTEGER NOT NULL,
     movie_id INTEGER NOT NULL,
     posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
+    FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES films(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE groupRequests (
     id SERIAL PRIMARY KEY,
@@ -79,6 +84,7 @@ CREATE TABLE groupRequests (
     FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE watchlist (
     id SERIAL PRIMARY KEY,

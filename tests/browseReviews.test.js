@@ -9,7 +9,7 @@ import pool from "../database/db.js";
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe("Browse Reviews API", () => {
+describe("Browse Reviews API - Positive Tests", () => {
   let dbConnection;
 
   before(async () => {

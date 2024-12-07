@@ -79,15 +79,29 @@ const AuthController = {
       // Commit the transaction
       await pool.query("COMMIT");
 
-      res
-        .status(200)
-        .json({
-          message: "Account deleted successfully, including all related data",
-        });
+      res.status(200).json({
+        message: "Account deleted successfully, including all related data",
+      });
     } catch (error) {
       await pool.query("ROLLBACK"); // Rollback the transaction on error
       console.error("Error during account deletion:", error);
       return res.status(403).json({ message: "Invalid or expired token" });
+    }
+  },
+
+  async logout(req, res) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader ? authHeader.split(" ")[1] : null;
+
+    if (!token) {
+      return res.status(404).json({ message: "No token provided" });
+    }
+
+    try {
+      jwt.verify(token, process.env.JWT_SECRET_KEY);
+      res.status(200).json({ message: "Logout successful" });
+    } catch (error) {
+      res.status(404).json({ message: "Invalid or expired token" });
     }
   },
 };
