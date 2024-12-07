@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
     "test": "cross-env PORT=5001 NODE_ENV=test mocha --experimental-modules --require chai-http tests/*.test.js",
     "devStart": "cross-env NODE_ENV=development nodemon index.js"
   },
